@@ -9,6 +9,8 @@ app.use(express.static('public'))
 
 const questions = new Questions()
 
+app.get('/', (req, res) => res.redirect('/question/general'))
+
 app.get('/api/questions/:group', async (req, res) => {
     const category = await questions.categoryFromGroup(req.params.group)
 

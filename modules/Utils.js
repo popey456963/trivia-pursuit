@@ -13,8 +13,8 @@ class Utils {
         return categories
     }
 
-    static async getQuestionFromCategory(category) {
-        const question = await fetch(`https://opentdb.com/api.php?amount=1&category=${category}&type=multiple&encode=url3986`)
+    static async getQuestionFromCategory(category, difficulty) {
+        const question = await fetch(`https://opentdb.com/api.php?amount=1&category=${category}&type=multiple&encode=url3986${difficulty ? `&difficulty=${difficulty}` : ``}`)
             .then(req => req.json())
             .then(req => req.results[0])
 
