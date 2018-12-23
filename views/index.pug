@@ -1,0 +1,118 @@
+html
+    head
+        title Trivial Pursuit Questions
+
+
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+        <link rel="stylesheet" href="/normalize.css">
+        <link rel="stylesheet" href="/milligram.min.css">
+
+        style.
+            .button {
+                width: calc(100% / 6);
+
+                font-size: 1.4rem;
+                height: 4.5rem;
+                line-height: 4.5rem;
+                padding: 0 2rem;
+            }
+
+    body
+        //- a.button.general(href='/question/general') General Knowledge
+        a.button.entertainment(href='/question/entertainment') Entertainment
+        a.button.science(href='/question/science') Science
+        a.button.history(href='/question/history') History
+        a.button.sports(href='/question/sports') Sports
+        a.button.geography(href='/question/geography') Geography
+        a.button.art(href='/question/art') Art
+
+        .container
+            h3= `${question.category} (${question.difficulty})`
+
+            b= question.question
+
+            //- answer is in .correct_answer
+            //- choices are in .correct_answers and .incorrect_answers
+            div#choicesDiv #[button#choices Show choices]
+            div#answersDiv #[button#answer Show answer]
+
+        script.
+            var question = !{JSON.stringify(question).replace(/<\//g, '<\\/')}
+
+            function shuffle(array) {
+                var currentIndex = array.length, temporaryValue, randomIndex;
+
+                // While there remain elements to shuffle...
+                while (0 !== currentIndex) {
+
+                    // Pick a remaining element...
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex -= 1;
+
+                    // And swap it with the current element.
+                    temporaryValue = array[currentIndex];
+                    array[currentIndex] = array[randomIndex];
+                    array[randomIndex] = temporaryValue;
+                }
+
+                return array;
+            }
+
+        script.
+            var choicesDiv = document.getElementById('choicesDiv')
+            var answersDiv = document.getElementById('answersDiv')
+            var choicesButton = document.getElementById('choices')
+            var answersButton = document.getElementById('answer')
+
+            function showChoices() {
+                var choices = question.incorrect_answers.concat([question.correct_answer])
+
+                choices = shuffle(choices)
+
+                var list = document.createElement('ul')
+                for (var i = 0; i < choices.length; i++) {
+                    var item = document.createElement('li')
+                    item.appendChild(document.createTextNode(choices[i]))
+                    list.appendChild(item)
+                }
+
+                choicesDiv.innerHTML = ''
+                choicesDiv.appendChild(list)
+            }
+
+            function showAnswer() {
+                answersDiv.innerHTML = question.correct_answer
+            }
+
+            choicesButton.addEventListener('click', function() {
+                showChoices()
+            })
+
+            answersButton.addEventListener('click', function() {
+                showAnswer()
+            })
+
+        //- script.
+        //-     function toggle_fullscreen() {
+        //-         var doc = window.document
+        //-         var docEl = doc.documentElement
+
+        //-         var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen
+        //-         var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen
+
+        //-         if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+        //-             requestFullScreen.call(docEl)
+        //-         }
+        //-         else {
+        //-             // cancelFullScreen.call(doc)
+        //-         }
+        //-     }
+
+        //-     if (document.getElementById('fullscreen')) { document.getElementById('fullscreen').onclick = function() { toggle_fullscreen() } }
+
+        //-     var tapped = false;
+        //-         document.body.addEventListener('touchstart', function(e) {
+        //-             if (!tapped) tapped = setTimeout(function() { tapped = null; }, 300)
+        //-             else { /* e.preventDefault(); */ toggle_fullscreen(); clearTimeout(tapped); tapped = null
+        //-         }
+        //-     })
