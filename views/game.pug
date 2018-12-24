@@ -1,0 +1,48 @@
+html
+    head
+        title Trivial Pursuit Player
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0.0, minimal-ui')
+        link(rel="stylesheet", href="/main.css")
+
+    body
+        .container
+            #q
+                h3#category
+                h4#question
+                .grid
+                    .row#choices
+                    div(style='clear: both')
+
+
+        script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')
+        script(src='/main.js')
+        script.
+            var ws = new WebSocket('ws://' + window.location.host + window.location.pathname)
+
+            ws.onopen = function(evt) {
+                ws.send(JSON.stringify({
+                    type: 'group',
+                    group: 'history'
+                }))
+            }
+
+            ws.onmessage = function(evt) {
+                var msg = JSON.parse(evt.data)
+                
+                if (msg.type === 'question') {
+                    var question = msg.question
+                    displayQuestion(question)
+                }
+
+                if (msg.type === 'answer') {
+                    var answer = msg.answer
+
+                    for (var i = 0; i < 4; i++) {
+                        let element = $('#answer' + i)[0]
+                        if (element.textContent === answer) {
+                            element.click()
+                        }
+                    }
+                    console.log(answer)
+                }            
+            }

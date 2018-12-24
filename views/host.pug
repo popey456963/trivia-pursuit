@@ -1,0 +1,54 @@
+html
+    head
+        title Trivial Pursuit Player
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0.0, minimal-ui')
+        link(rel="stylesheet", href="/main.css")
+
+    body
+        .container
+            .grid
+                .row
+                    .column #[#entertainment.button.category Entertainment]
+                    .column #[#science.button.category Science]
+                    .column #[#history.button.category History]
+                    .column #[#sports.button.category Sports]
+                    .column #[#geography.button.category Geography]
+                    .column #[#art.button.category Art]
+                    div(style='clear: both')
+
+            #q
+                h3#category
+                h4#question
+                .grid
+                    .row#choices
+
+            #fullscreen fullscreen
+
+
+        script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')
+        script(src='/main.js')
+        script.
+            var ws = new WebSocket('ws://' + window.location.host + window.location.pathname)
+
+            ws.onopen = function(evt) {
+                //- ws.send(JSON.stringify({
+                //-     type: 'group',
+                //-     group: 'history'
+                //- }))
+            }
+
+            ws.onmessage = function(evt) {
+                var msg = JSON.parse(evt.data)
+                
+                if (msg.type === 'question') {
+                    var question = msg.question
+                    displayQuestion(question)
+                }
+            }
+
+            $('.category').click(function(e) {
+                ws.send(JSON.stringify({
+                    type: 'group',
+                    group: e.currentTarget.id
+                }))
+            })

@@ -59,6 +59,22 @@ html
             }
 
         script.
+            var ws = new WebSocket('ws://127.0.0.1:9050/game/test')
+
+            // event emmited when connected
+            ws.onopen = function () {
+                console.log('websocket is connected ...')
+
+                // sending a send event to websocket server
+                ws.send('connected')
+            }
+
+            // event emmited when receiving message 
+            ws.onmessage = function (ev) {
+                console.log(ev);
+            }
+
+        script.
             var choicesDiv = document.getElementById('choicesDiv')
             var answersDiv = document.getElementById('answersDiv')
             var choicesButton = document.getElementById('choices')

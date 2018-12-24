@@ -29,11 +29,11 @@ module.exports = [
         "name": "Entertainment: Television",
         "category": "entertainment"
     },
-    {
-        "id": 15,
-        "name": "Entertainment: Video Games",
-        "category": "entertainment"
-    },
+    // {
+    //     "id": 15,
+    //     "name": "Entertainment: Video Games",
+    //     "category": "entertainment"
+    // },
     {
         "id": 16,
         "name": "Entertainment: Board Games",
@@ -89,15 +89,15 @@ module.exports = [
         "name": "Vehicles",
         "category": "science"
     },
-    {
-        "id": 29,
-        "name": "Entertainment: Comics",
-        "category": "entertainment"
-    },
-    {
-        "id": 30,
-        "name": "Science: Gadgets",
-        "category": "science"
-    }
+    // {
+    //     "id": 29,
+    //     "name": "Entertainment: Comics",
+    //     "category": "entertainment"
+    // },
+    // {
+    //     "id": 30,
+    //     "name": "Science: Gadgets",
+    //     "category": "science"
+    // }
 ]
 

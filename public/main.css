@@ -1,0 +1,64 @@
+body {
+    font-family: sans-serif;
+}
+
+.grid {
+    font-size: 100%;
+    max-width: 1600px;
+}
+
+.row {
+    margin: 0.5em 0;
+    padding: 0.25em;
+    text-align: center;
+    background: #eee;
+    border-radius: 0.25em;
+}
+
+.column {
+    width: 100%;
+    float: left;
+}
+
+.button {
+    margin: 0.25em;
+    padding: 0.5em 0;
+    color: #fff;
+    background: #ffbb00;
+    font-weight: bold;
+    line-height: 1em;
+    border: solid 1px transparent;
+    border-radius: 0.25em;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 600px) {
+    .column {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .column {
+        width: 33%;
+    }
+}
+
+#entertainment { background: #ff69b4; }
+#science { background: #32cd32; }
+#history { background: #ffcc00; }
+#sports { background: #ff9900; }
+#geography { background: #0072bc; }
+#art { background: #d2691e; }
+
+.container {
+    width: 100%;
+}
+
+.right {
+    background: #32cd32 !important;
+}
+
+.wrong {
+    background: #d2691e !important;
+}
